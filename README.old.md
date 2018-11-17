@@ -1,1 +1,0 @@
-# eats-easy-node
