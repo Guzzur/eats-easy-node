@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+require("dotenv").config();
 
 class Version extends Component {
   constructor(props) {
@@ -9,9 +10,9 @@ class Version extends Component {
   }
 
   componentDidMount() {
-    const apiUrl =
-      process.env.apiUrl || "https://eats-easy-spring.herokuapp.com/api";
-    fetch(apiUrl + "/user/", {
+    const apiUrl = process.env.API_URL || "http://127.0.0.1:8080/api";
+    console.log(process.env);
+    fetch(apiUrl + "/whoami", {
       method: "GET",
       mode: "no-cors",
       headers: {
@@ -19,7 +20,8 @@ class Version extends Component {
         "Access-Control-Allow-Origin": "*"
       }
     })
-      .then(res => console.log(res) || res.json())
+      .then(res => console.log(res) || res.text())
+      .then(text => console.log(text) || (text ? JSON.parse(text) : {}))
       .then(
         apiVersion =>
           console.log(apiVersion) ||
@@ -33,7 +35,7 @@ class Version extends Component {
   render() {
     const { apiVersion } = this.state;
     console.log(apiVersion);
-    return apiVersion ? <div>{apiVersion}</div> : "";
+    return apiVersion ? String(JSON.stringify(apiVersion)) : "";
   }
 }
 
