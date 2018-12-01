@@ -1,23 +1,28 @@
-import React, { Component } from "react";
+import { Component } from "react";
 require("dotenv").config();
 
 class Version extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiVersion: "trying to fetch version..."
+      apiVersion: {
+        majorApiVersion: 0,
+        minorApiVersion: 0,
+        buildApiVersion: 0
+      }
     };
   }
 
   componentDidMount() {
     const apiUrl = process.env.API_URL || "https://eats-easy-spring.herokuapp.com/api";
     console.log(process.env);
-    fetch(apiUrl + "/user/", {
+    console.log(apiUrl);
+    fetch(apiUrl + "/whoami", {
       method: "GET",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true"
       }
     })
       .then(res => console.log(res) || res.text())
@@ -35,7 +40,14 @@ class Version extends Component {
   render() {
     const { apiVersion } = this.state;
     console.log(apiVersion);
-    return apiVersion ? String(JSON.stringify(apiVersion)) : "";
+    return apiVersion
+      ? "EatsEasy API v" +
+          apiVersion.majorApiVersion +
+          "." +
+          apiVersion.minorApiVersion +
+          "." +
+          apiVersion.buildApiVersion
+      : "";
   }
 }
 
