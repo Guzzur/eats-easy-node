@@ -10,9 +10,9 @@ class Version extends Component {
   }
 
   componentDidMount() {
-    const apiUrl = process.env.API_URL || "http://127.0.0.1:8080/api";
+    const apiUrl = process.env.API_URL || "https://eats-easy-spring.herokuapp.com/api";
     console.log(process.env);
-    fetch(apiUrl + "/whoami", {
+    fetch(apiUrl + "/user/", {
       method: "GET",
       mode: "no-cors",
       headers: {
