@@ -5,7 +5,11 @@ class Version extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiVersion: "trying to fetch version..."
+      apiVersion: {
+        majorApiVersion: 0,
+        minorApiVersion: 0,
+        buildApiVersion: 0
+      }
     };
   }
 
